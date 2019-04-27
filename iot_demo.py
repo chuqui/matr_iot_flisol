@@ -25,7 +25,14 @@ def customSubackCallback(mid, data):
     print data
 
 def customOnMessage(message):
-    print json.loads(message.payload)
+    message = json.loads(message.payload)
+    
+    if message["type"] == "led":
+        if message["data"] == "on":
+            GPIO.output("P8_10", GPIO.HIGH)
+	else:
+            GPIO.output("P8_10", GPIO.LOW)
+
 
 def publishButtonPress():
     print "Publishing button press"
